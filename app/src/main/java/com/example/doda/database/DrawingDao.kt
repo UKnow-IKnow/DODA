@@ -7,7 +7,7 @@ import com.example.doda.models.Marker
 
 @Dao
 interface DrawingDao {
-    @Query("SELECT * FROM drawing_table ORDER BY addition_time DESC")
+    @Query("SELECT * FROM drawing_table")
     fun getAllDrawings(): LiveData<List<Drawing>>
 
     @Insert
@@ -22,7 +22,7 @@ interface DrawingDao {
 
 @Dao
 interface MarkerDao {
-    @Query("SELECT * FROM marker_table WHERE drawing_id = :drawingId")
+    @Query("SELECT * FROM marker_table WHERE drawingId = :drawingId")
     fun getMarkersByDrawingId(drawingId: Int): LiveData<List<Marker>>
 
     @Insert

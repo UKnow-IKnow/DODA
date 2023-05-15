@@ -29,8 +29,12 @@ class DrawingAdapter(private val context: Context) : RecyclerView.Adapter<Drawin
 
     override fun onBindViewHolder(holder: DrawingViewHolder, position: Int) {
         val current = drawings[position]
-        holder.textViewName.text = current.drawingName
-        holder.textViewDate.text = DateFormat.getDateTimeInstance().format(Date(current.additionTime))
+        holder.textViewName.text = current.name
+        holder.textViewDate.text = DateFormat.getDateTimeInstance().format(current.additionTime?.let {
+            Date(
+                it
+            )
+        })
 
         // On item click, open DrawingDetailActivity
         holder.itemView.setOnClickListener {

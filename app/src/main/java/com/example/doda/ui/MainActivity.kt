@@ -6,18 +6,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.doda.R
 import com.example.doda.adapters.DrawingAdapter
 import com.example.doda.models.Drawing
+import com.example.doda.repository.DrawingRepository
 import com.example.doda.viewModels.DrawingViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var drawingViewModel: DrawingViewModel
+    val viewModelFactory = ViewModelProvider.AndroidViewModelFactory.getInstance(this.application)
     private val newDrawingActivityRequestCode = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        drawingViewModel = ViewModelProvider(this).get(DrawingViewModel::class.java)
+        val drawingViewModel = ViewModelProvider(this, viewModelFactory).get(DrawingViewModel::class.java)
 
         drawingViewModel.allDrawings.observe(this, Observer { drawings ->
             // Update the cached copy of the drawings in the adapter.
